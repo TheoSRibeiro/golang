@@ -1,0 +1,10 @@
+Run
+> go run nome_arquivo.go
+
+uso de pacotes
+	dentro da pasta onde estão os pacotes:
+	> go mod init nome_modul
+	
+	criar o arquivo main e fazer o build
+	> go build
+
