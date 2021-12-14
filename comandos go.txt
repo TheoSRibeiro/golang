@@ -8,3 +8,8 @@ uso de pacotes
 	criar o arquivo main e fazer o build
 	> go build
 
+pacotes externos
+> go get github.com.badoux/checkmail
+
+remover dependencias que nao estão sendo utilizadas
+> go mod tidy
