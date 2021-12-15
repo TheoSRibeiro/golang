@@ -29,4 +29,29 @@ func main() {
 
 	array2[1] = "pos_alterada"
 	fmt.Println(slice2)
+
+	//Arrays Internos
+
+	fmt.Println("Arrays Internos")
+
+	slice3 := make([]float32, 10, 11)
+	fmt.Println(slice3)
+
+	slice3 = append(slice3, 5)
+	fmt.Println(slice3)
+
+	slice3 = append(slice3, 6)
+	fmt.Println(slice3)
+
+	fmt.Println("tamanho slice 3 - ", len(slice3))    //length
+	fmt.Println("capacidade slice 3 - ", cap(slice3)) // capacidade
+
+	slice4 := make([]float32, 5)
+	fmt.Println(slice4)
+	fmt.Println("tamanho slice 4 - ", len(slice4))    //length
+	fmt.Println("capacidade slice 4 - ", cap(slice4)) // capacidade
+
+	slice4 = append(slice4, 10)
+	fmt.Println("tamanho slice 4 - ", len(slice4))    //length
+	fmt.Println("capacidade slice 4 - ", cap(slice4)) // capacidade
 }
