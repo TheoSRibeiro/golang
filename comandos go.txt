@@ -17,3 +17,4 @@ remover dependencias que nao estão sendo utilizadas
 Aula 32 - aplicacao de linha de comando:
 run
 > go run main.go ip --host amazon.com.br
+> go run main.go servidores --host amazon.com.br
