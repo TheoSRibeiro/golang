@@ -13,3 +13,7 @@ pacotes externos
 
 remover dependencias que nao estão sendo utilizadas
 > go mod tidy
+
+Aula 32 - aplicacao de linha de comando:
+run
+> go run main.go ip --host amazon.com.br
