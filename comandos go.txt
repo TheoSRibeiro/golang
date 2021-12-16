@@ -3,7 +3,7 @@ Run
 
 uso de pacotes
 	dentro da pasta onde estão os pacotes:
-	> go mod init nome_modul
+	> go mod init nome_modulo
 	
 	criar o arquivo main e fazer o build
 	> go build
