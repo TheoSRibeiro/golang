@@ -1,6 +1,7 @@
-package enderecos
+package enderecos_test
 
 import "testing"
+import . "introducao-testes/enderecos" // o '.' faz alias para nao ter que digitar enderecos.TipoEndereco
 
 type cenarioTeste struct {
 	enderecoInserido string
@@ -9,6 +10,7 @@ type cenarioTeste struct {
 
 //TESTE UNITARIO
 func TestTipoEndereco(t *testing.T) {
+	t.Parallel()
 
 	cenariosTeste := []cenarioTeste{
 		{"Rua ABC", "Rua"},
@@ -27,11 +29,11 @@ func TestTipoEndereco(t *testing.T) {
 		}
 	}
 
-	/* enderecoTeste := "Rua Paulista"
-	tipoEnderecoEsperado := "Avenida"
-	tipoEnderecoRecebido := TipoEndereco(enderecoTeste)
+}
+func TestQualquer(t *testing.T) {
+	t.Parallel()
 
-	if tipoEnderecoRecebido != tipoEnderecoEsperado {
-		t.Errorf("O tipo recebido é diferente do esperado! Esperava %s e recebeu %s", tipoEnderecoEsperado, tipoEnderecoRecebido)
-	} */
+	if 2 < 1 {
+		t.Errorf("Teste quebrou!")
+	}
 }

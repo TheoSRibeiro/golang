@@ -18,3 +18,22 @@ Aula 32 - aplicacao de linha de comando:
 run
 > go run main.go ip --host amazon.com.br
 > go run main.go servidores --host amazon.com.br
+
+testar todos os pacotes
+-> ir para pasta main e fazer:
+> go test ./...
+
+rodar teste verbose:
+> go test -v
+
+teste com cobertura
+> go test --cover
+
+gerar arquivo teste de cobertura
+> go test --coverprofile nome_arquivo.txt
+
+ler arquivo teste de cobertura - listar funcoes testadas
+> go tool cover --func=nome_arquivo.txt
+
+ler arquivo de teste de cobertura - mostrar html com codigo testado e nao testado
+>go tool cover --html=nome_arquivo.txt
