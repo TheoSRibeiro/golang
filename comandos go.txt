@@ -37,3 +37,21 @@ ler arquivo teste de cobertura - listar funcoes testadas
 
 ler arquivo de teste de cobertura - mostrar html com codigo testado e nao testado
 >go tool cover --html=nome_arquivo.txt
+
+MYSQL
+> mysql -u root -p
+> show databases;
+> create database devbook;
+> use devbook;
+> create table usuarios(
+-> id int auto_increment primary key,
+-> nome varchar(50) not null,
+-> email varchar(50) not null,
+-> ) ENGINE=INNODB;
+
+> show tables
+> create user 'golang'@'localhost' identified by '123456';
+> grant all privileges on devbook.* to 'golang'@'localhost';
+> exit;
+
+> mysql -u golang -p
