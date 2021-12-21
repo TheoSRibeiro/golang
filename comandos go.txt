@@ -55,3 +55,6 @@ MYSQL
 > exit;
 
 > mysql -u golang -p
+
+instalar o driver do mysql
+> go get github.com/go-sql-driver/mysql

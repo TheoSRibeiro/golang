@@ -144,3 +144,47 @@ func BuscarUsuario(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+// AtualizarUsuario altera os campos de um usuário no BD
+func AtualizarUsuario(w http.ResponseWriter, r *http.Request) {
+
+	parametros := mux.Vars(r)
+
+	ID, erro := strconv.ParseInt(parametros["id"], 10, 64)
+	if erro != nil {
+		w.Write([]byte("Erro ao converter o parâmetro para inteiro!"))
+		return
+	}
+
+	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
+	if erro != nil {
+		w.Write([]byte("Erro ao ler o corpo da requisição!"))
+		return
+	}
+
+	var usr usuario
+	if erro := json.Unmarshal(corpoRequisicao, &usr); erro != nil {
+		w.Write([]byte("Erro ao converter o usuário para struct!"))
+		return
+	}
+
+	db, erro := banco.Conectar()
+	if erro != nil {
+		w.Write([]byte("Erro ao conectar no banco de dados!"))
+		return
+	}
+	defer db.Close()
+
+	statement, erro := db.Prepare("update usuarios set nome = ?, email = ? where id = ?")
+	if erro != nil {
+		w.Write([]byte("Erro ao criar o statement!"))
+		return
+	}
+	defer statement.Close()
+
+	if _, erro := statement.Exec(usr.Nome, usr.Email, ID); erro != nil {
+		w.Write([]byte("Erro ao atualizar o cadastro!"))
+		return
+	}
+
+}
