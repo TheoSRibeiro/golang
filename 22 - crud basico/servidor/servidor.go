@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 type usuario struct {
@@ -103,5 +106,41 @@ func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
 
 // BuscarUsuarios traz um usuario especifico salvo no BD
 func BuscarUsuario(w http.ResponseWriter, r *http.Request) {
+
+	// Capturar o id passado
+	parametros := mux.Vars(r)
+
+	ID, erro := strconv.ParseInt(parametros["id"], 10, 64)
+	if erro != nil {
+		w.Write([]byte("Erro ao converter o parâmetro para inteiro"))
+		return
+	}
+
+	//Conexao com o banco
+	db, erro := banco.Conectar()
+	if erro != nil {
+		w.Write([]byte("Erro ao conectar ao BD!"))
+		return
+	}
+
+	linha, erro := db.Query("select * from usuarios where id = ?", ID)
+	if erro != nil {
+		w.Write([]byte("Erro ao buscar usuario"))
+		return
+	}
+
+	var usr usuario
+	if linha.Next() {
+		if erro := linha.Scan(&usr.ID, &usr.Nome, &usr.Email); erro != nil {
+			w.Write([]byte("Erro ao escanear o usuário!"))
+			return
+		}
+	}
+
+	w.WriteHeader(http.StatusOK)
+	if erro := json.NewEncoder(w).Encode(usr); erro != nil {
+		w.Write([]byte("Erro ao converter o usuário para JSON!"))
+		return
+	}
 
 }
