@@ -1,6 +1,10 @@
 package modelos
 
-import "time"
+import (
+	"errors"
+	"strings"
+	"time"
+)
 
 // letra maiuscula para ser exportado
 // Usuario representa um usr utilizando a rede social
@@ -11,4 +15,40 @@ type Usuario struct {
 	Email       string    `json:"email,omitempty"`
 	Senha       string    `json:"senha,omitempty"`
 	DataCriacao time.Time `json:"dataCriacao,omitempty"`
+}
+
+// Chamar os metodos para validar e formatar o usuario recebido no Controller
+func (usr *Usuario) Preparar() error {
+	if erro := usr.validar(); erro != nil {
+		return erro
+	}
+
+	usr.formatar()
+	return nil
+}
+
+func (usr *Usuario) validar() error {
+	if usr.Nome == "" {
+		return errors.New("O nome é obrigatório e não pode estar em branco!")
+	}
+
+	if usr.Nick == "" {
+		return errors.New("O nick é obrigatório e não pode estar em branco!")
+	}
+
+	if usr.Email == "" {
+		return errors.New("O email é obrigatório e não pode estar em branco!")
+	}
+
+	if usr.Senha == "" {
+		return errors.New("A senha é obrigatório e não pode estar em branco!")
+	}
+
+	return nil
+}
+
+func (usr *Usuario) formatar() {
+	usr.Nome = strings.TrimSpace(usr.Nome)
+	usr.Nick = strings.TrimSpace(usr.Nick)
+	usr.Email = strings.TrimSpace(usr.Email)
 }
