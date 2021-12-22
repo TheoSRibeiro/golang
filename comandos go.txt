@@ -71,3 +71,7 @@ instalar o mux no pacote API para utilizar o Router
 
 criar diretorio src e adicionar o router(router.go)
 criar as rotas dentro do diretorio router
+criar controllers
+criar pasta config
+
+baixar o pacote godotenv para ler o arquivo .env
