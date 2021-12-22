@@ -28,7 +28,7 @@ func (repositorio usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 	}
 	defer statement.Close()
 
-	resultado, erro := statement.Exec(usuario.Nome, usuario.Nick, usuario.Senha)
+	resultado, erro := statement.Exec(usuario.Nome, usuario.Nick, usuario.Email, usuario.Senha)
 	if erro != nil {
 		return 0, erro
 	}

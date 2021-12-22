@@ -73,5 +73,9 @@ criar diretorio src e adicionar o router(router.go)
 criar as rotas dentro do diretorio router
 criar controllers
 criar pasta config
+criar banco
+incluir o driver mysql
+> go get github.com/go-sql-driver/mysql
 
 baixar o pacote godotenv para ler o arquivo .env
+> go get github.com/joho/godotenv
