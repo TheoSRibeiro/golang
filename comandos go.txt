@@ -70,3 +70,4 @@ instalar o mux no pacote API para utilizar o Router
 > go get github.com/gorilla/mux
 
 criar diretorio src e adicionar o router(router.go)
+criar as rotas dentro do diretorio router
