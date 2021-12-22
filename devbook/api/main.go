@@ -15,8 +15,7 @@ func main() {
 	/* fmt.Println(config.Porta)
 	fmt.Println(config.ConexaoBanco) */
 
-	fmt.Println("Rodando API")
 	r := router.Gerar()
-
+	fmt.Printf("Escutando na porta %d", config.Porta)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Porta), r))
 }
