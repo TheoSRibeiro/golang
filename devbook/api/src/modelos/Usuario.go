@@ -18,8 +18,8 @@ type Usuario struct {
 }
 
 // Chamar os metodos para validar e formatar o usuario recebido no Controller
-func (usr *Usuario) Preparar() error {
-	if erro := usr.validar(); erro != nil {
+func (usr *Usuario) Preparar(etapa string) error {
+	if erro := usr.validar(etapa); erro != nil {
 		return erro
 	}
 
@@ -27,7 +27,7 @@ func (usr *Usuario) Preparar() error {
 	return nil
 }
 
-func (usr *Usuario) validar() error {
+func (usr *Usuario) validar(etapa string) error {
 	if usr.Nome == "" {
 		return errors.New("O nome é obrigatório e não pode estar em branco!")
 	}
@@ -40,7 +40,7 @@ func (usr *Usuario) validar() error {
 		return errors.New("O email é obrigatório e não pode estar em branco!")
 	}
 
-	if usr.Senha == "" {
+	if etapa == "cadastro" && usr.Senha == "" {
 		return errors.New("A senha é obrigatório e não pode estar em branco!")
 	}
 
