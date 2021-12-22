@@ -83,3 +83,7 @@ baixar o pacote godotenv para ler o arquivo .env
 SQL
 > mysql -u root -p
 > desc usuarios
+
+
+validacao de email
+> go get github.com/badoux/checkmail

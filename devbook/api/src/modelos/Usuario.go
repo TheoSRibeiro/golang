@@ -4,6 +4,8 @@ import (
 	"errors"
 	"strings"
 	"time"
+
+	"github.com/badoux/checkmail"
 )
 
 // letra maiuscula para ser exportado
@@ -38,6 +40,10 @@ func (usr *Usuario) validar(etapa string) error {
 
 	if usr.Email == "" {
 		return errors.New("O email é obrigatório e não pode estar em branco!")
+	}
+
+	if erro := checkmail.ValidateFormat(usr.Email); erro != nil {
+		return errors.New("O e-mail inserido é inválido!")
 	}
 
 	if etapa == "cadastro" && usr.Senha == "" {
