@@ -8,7 +8,10 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
+
+	"github.com/gorilla/mux"
 )
 
 // inserir usr no BD
@@ -70,7 +73,34 @@ func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
 
 // capturar 1 usr no BD
 func BuscarUsuario(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Buscando Usuário!"))
+
+	//capturar todos os parametros existentes na rota
+	parametros := mux.Vars(r)
+
+	// converter o id para uint64
+	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
+	if erro != nil {
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	//conexao com o DB
+	db, erro := banco.Conectar()
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	//repositorio
+	repositorio := repositorios.NovoRepositorioUsuarios(db)
+	usuario, erro := repositorio.BuscarID(usuarioID)
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSON(w, http.StatusOK, usuario)
 }
 
 // atualizar 1 usr no BD
