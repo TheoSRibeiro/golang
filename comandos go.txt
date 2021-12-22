@@ -79,3 +79,7 @@ incluir o driver mysql
 
 baixar o pacote godotenv para ler o arquivo .env
 > go get github.com/joho/godotenv
+
+SQL
+> mysql -u root -p
+> desc usuarios
