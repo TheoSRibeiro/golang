@@ -1,6 +1,7 @@
 package modelos
 
 import (
+	"api/src/seguranca"
 	"errors"
 	"strings"
 	"time"
@@ -25,7 +26,9 @@ func (usr *Usuario) Preparar(etapa string) error {
 		return erro
 	}
 
-	usr.formatar()
+	if erro := usr.formatar(etapa); erro != nil {
+		return erro
+	}
 	return nil
 }
 
@@ -53,8 +56,19 @@ func (usr *Usuario) validar(etapa string) error {
 	return nil
 }
 
-func (usr *Usuario) formatar() {
+func (usr *Usuario) formatar(etapa string) error {
 	usr.Nome = strings.TrimSpace(usr.Nome)
 	usr.Nick = strings.TrimSpace(usr.Nick)
 	usr.Email = strings.TrimSpace(usr.Email)
+
+	if etapa == "cadastro" {
+		senhaComHash, erro := seguranca.Hash(usr.Senha)
+
+		if erro != nil {
+			return erro
+		}
+
+		usr.Senha = string(senhaComHash)
+	}
+	return nil
 }

@@ -87,3 +87,7 @@ SQL
 
 validacao de email
 > go get github.com/badoux/checkmail
+
+inserindo hash na senha
+baixar o bcrypt
+> go get golang.org/x/crypto/bcrypt
