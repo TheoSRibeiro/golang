@@ -198,3 +198,44 @@ func DeletarUsuario(w http.ResponseWriter, r *http.Request) {
 
 	respostas.JSON(w, http.StatusNoContent, nil)
 }
+
+//Permitir um Usr seguir outro Usr
+func SeguirUsuario(w http.ResponseWriter, r *http.Request) {
+	//Extrair UsrID do Token
+	seguidorID, erro := autenticacao.ExtrairUsuarioID(r)
+	if erro != nil {
+		respostas.Erro(w, http.StatusUnauthorized, erro)
+		return
+	}
+
+	//ler usrID dos parametros
+	parametros := mux.Vars(r)
+	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
+	if erro != nil {
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	//verificar se os IDs sao iguais, se for, ERROR, usr nao pode seguir a si mesmo
+	if seguidorID == usuarioID {
+		respostas.Erro(w, http.StatusForbidden, errors.New("não é possível seguir você mesmo"))
+		return
+	}
+
+	//Abrir conexao com o DB
+	db, erro := banco.Conectar()
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	repositorio := repositorios.NovoRepositorioUsuarios(db)
+	if erro = repositorio.Seguir(usuarioID, seguidorID); erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSON(w, http.StatusNoContent, nil)
+
+}
