@@ -91,3 +91,10 @@ validacao de email
 inserindo hash na senha
 baixar o bcrypt
 > go get golang.org/x/crypto/bcrypt
+
+TOKEN
+baixar o jwt-go
+> go get github.com/dgrijalva/jwt-go
+
+selecionar todas as palavras iguais
+ctrl + shift + l
