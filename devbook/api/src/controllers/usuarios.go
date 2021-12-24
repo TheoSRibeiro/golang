@@ -6,6 +6,7 @@ import (
 	"api/src/modelos"
 	"api/src/repositorios"
 	"api/src/respostas"
+	"api/src/seguranca"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
@@ -329,4 +330,70 @@ func BuscarSeguindo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respostas.JSON(w, http.StatusOK, usuarios)
+}
+
+//Permite alterar a senha de 1 Usr
+func AtualizarSenha(w http.ResponseWriter, r *http.Request) {
+	//capturar o id do usr no token e requisicao
+	usuarioIDToken, erro := autenticacao.ExtrairUsuarioID(r)
+	if erro != nil {
+		respostas.Erro(w, http.StatusUnauthorized, erro)
+		return
+	}
+
+	parametros := mux.Vars(r)
+	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
+	if erro != nil {
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	if usuarioIDToken != usuarioID {
+		respostas.Erro(w, http.StatusForbidden, errors.New("não é possível atualizar a senha de outro usuário"))
+		return
+	}
+
+	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
+
+	var senha modelos.Senha
+	if erro = json.Unmarshal(corpoRequisicao, &senha); erro != nil {
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	db, erro := banco.Conectar()
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	//verificar no bd se a senha atual bate com a senha cadastrada
+	repositorio := repositorios.NovoRepositorioUsuarios(db)
+	senhaSalvaDB, erro := repositorio.BuscarSenha(usuarioID)
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	//comparar a senha salva no DB com a senha atual
+	if erro = seguranca.VerificarSenha(senhaSalvaDB, senha.Atual); erro != nil {
+		respostas.Erro(w, http.StatusUnauthorized, errors.New("a senha atual não condiz com a sua senha cadastrada"))
+		return
+	}
+
+	senhaHash, erro := seguranca.Hash(senha.Nova)
+	if erro != nil {
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	//metodo para inserir a senha no DB
+	if erro = repositorio.AtualizarSenha(usuarioID, string(senhaHash)); erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSON(w, http.StatusOK, nil)
+
 }
