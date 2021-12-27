@@ -106,3 +106,5 @@ inicializar o app web
 
 inicializar a aplicacao 
 > go run .main ou go run webapp
+
+criar pagina html - digitar 'doc' que ja cria automaticamente
