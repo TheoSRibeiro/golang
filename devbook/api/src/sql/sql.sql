@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS devbook;
 USE devbook;
 
 DROP TABLE IF EXISTS seguidores;
-DROP TABLE IF EXISTS seguidores;
+DROP TABLE IF EXISTS publicacoes;
 DROP TABLE IF EXISTS usuarios;
 
 
