@@ -11,15 +11,16 @@ function criarUsuario(evento){
         return;
     }
 
+
     //Requisicao AJAX - caso as senhas forem iguais
     $.ajax({
         url: "/usuarios",
         method: "POST",
         data:{
             nome: $('#nome').val(),
-            nome: $('#email').val(),
-            nome: $('#nick').val(),
-            nome: $('#senha').val()
+            email: $('#email').val(),
+            nick: $('#nick').val(),
+            senha: $('#senha').val()
         }
     });
 }
