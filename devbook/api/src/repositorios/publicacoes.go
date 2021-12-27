@@ -108,6 +108,42 @@ func (repositorio Publicacoes) Buscar(usuarioID uint64) ([]modelos.Publicacao, e
 	return publicacoes, nil
 }
 
+// Retorna todas as publicacoes de um usuario especifico
+func (repositorio Publicacoes) BuscarPorUsuario(usuarioID uint64) ([]modelos.Publicacao, error) {
+	linhas, erro := repositorio.db.Query(`
+	select p.*, u.nick from publicacoes p
+	join usuarios u on u.id = p.autor_id
+	where p.autor_id = ?`,
+		usuarioID,
+	)
+	if erro != nil {
+		return nil, erro
+	}
+	defer linhas.Close()
+
+	var publicacoes []modelos.Publicacao
+
+	for linhas.Next() {
+		var publicacao modelos.Publicacao
+
+		if erro = linhas.Scan(
+			&publicacao.ID,
+			&publicacao.Titulo,
+			&publicacao.Conteudo,
+			&publicacao.AutorID,
+			&publicacao.Curtidas,
+			&publicacao.DataCriacao,
+			&publicacao.AutorNick,
+		); erro != nil {
+			return nil, erro
+		}
+
+		publicacoes = append(publicacoes, publicacao)
+	}
+
+	return publicacoes, nil
+}
+
 //Altera dados da uma publicacao no DB
 func (repositorio Publicacoes) Atualizar(publicaoId uint64, publicacao modelos.Publicacao) error {
 	statement, erro := repositorio.db.Prepare(`
