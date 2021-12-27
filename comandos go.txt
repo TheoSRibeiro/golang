@@ -98,3 +98,11 @@ baixar o jwt-go
 
 selecionar todas as palavras iguais
 ctrl + shift + l
+
+#######  WEBAPP ########
+
+inicializar o app web
+> go mod init webapp
+
+inicializar a aplicacao 
+> go run .main ou go run webapp
