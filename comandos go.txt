@@ -108,3 +108,9 @@ inicializar a aplicacao
 > go run .main ou go run webapp
 
 criar pagina html - digitar 'doc' que ja cria automaticamente
+
+Instalar godotenv para carregar as configuracoes do cookie
+> go get github.com/joho/godotenv
+
+baixar o pacote de segurança para utilizar cookies
+> go get github.com/gorilla/securecookie
