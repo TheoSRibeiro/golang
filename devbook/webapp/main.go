@@ -10,6 +10,17 @@ import (
 	"webapp/src/utils"
 )
 
+//Gerar chaves aleatorias - HASHKEY e BLOCKKEY para inserir em .env
+//gerar 1 vez
+/* func init() {
+	hashKey := hex.EncodeToString(securecookie.GenerateRandomKey(16))
+	fmt.Println("HASHKEY: ", hashKey)
+
+	blockKey := hex.EncodeToString(securecookie.GenerateRandomKey(16))
+	fmt.Println("BLOCKKEY: ", blockKey)
+
+} */
+
 func main() {
 	config.Carregar()
 	cookies.Configurar()
