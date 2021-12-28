@@ -18,7 +18,7 @@ values
 ("Publicação do Usuario 1", "Essa é a publicação do usuário 1, HEHE!", 1),
 ("Publicação do Usuario 2", "Essa é a publicação do usuário 2, HEHE!", 2),
 ("Publicação do Usuario 3", "Essa é a publicação do usuário 3, HEHE!", 3),
-("Publicação do Usuario 4", "Essa é a publicação do usuário 4, HEHE!", 4);
+("Publicação do Usuario 4", "Essa é a publicação do usuário 4, HEHE!", 4),
 ("Publicação do Usuario 1", "Essa é a publicação do usuário 1, HEHE!", 1),
 ("Publicação do Usuario 2", "Essa é a publicação do usuário 2, HEHE!", 2),
 ("Publicação do Usuario 3", "Essa é a publicação do usuário 3, HEHE!", 3);
