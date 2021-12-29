@@ -17,6 +17,15 @@ import (
 
 //Carregar a tela de login
 func CarregarTelaLogin(w http.ResponseWriter, r *http.Request) {
+	cookie, _ := cookies.Ler(r)
+	status := 302
+
+	//Se tiver autenticado, ir para home ao inves de login
+	if cookie["token"] != "" {
+		http.Redirect(w, r, "/home", status)
+		return
+	}
+
 	utils.ExecutarTemplate(w, "login.html", nil)
 }
 
@@ -88,5 +97,4 @@ func CarregarPaginaAtualizacaoPublicacao(w http.ResponseWriter, r *http.Request)
 	}
 
 	utils.ExecutarTemplate(w, "atualizar-publicacao.html", publicacao)
-
 }
