@@ -1,7 +1,7 @@
 $('#parar-de-seguir').on('click', pararDeSeguir);
 $('#seguir').on('click', seguir);
 $('#editar-usuario').on('submit', editar);
-$('#editar-senha').on('submit', atualizarSenha)
+$('#atualizar-senha').on('submit', atualizarSenha)
 
 function pararDeSeguir(){
     const usuarioId = $(this).data('usuario-id');
