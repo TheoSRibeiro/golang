@@ -1,13 +1,12 @@
 $('#parar-de-seguir').on('click', pararDeSeguir);
-$('#seguir').on('click', seguir)
+$('#seguir').on('click', seguir);
 
 function pararDeSeguir(){
     const usuarioId = $(this).data('usuario-id');
-    $(this).prop('disabled', true)
+    $(this).prop('disabled', true);
 
     $.ajax({
-        url: `/usuarios/${usuarioId}/parar-de-seguir`,
-              
+        url: `/usuarios/${usuarioId}/parar-de-seguir`,   
         method: "POST"
     }).done(function(){
         window.location = `/usuarios/${usuarioId}`;
@@ -19,7 +18,7 @@ function pararDeSeguir(){
 
 function seguir(){
     const usuarioId = $(this).data('usuario-id');
-    $(this).prop('disabled', true)
+    $(this).prop('disabled', true);
 
     $.ajax({
         url: `/usuarios/${usuarioId}/seguir`,

@@ -16,7 +16,7 @@
 {{ define "cabecalho-publicaco" }}
     <h1 class="display-4">{{ .Titulo }}</h1>
     <p class="lead"> {{ .Conteudo }}</p>
-    <a href="#">{{ .AutorNick }} - {{ .DataCriacao.Format "02/01/2006 3:4" }}</a>
+    <a href="/usuarios/{{ .AutorID }}">{{ .AutorNick }} - {{ .DataCriacao.Format "02/01/2006 3:4" }}</a>
     <hr class="my-4">
 
     <!-- Jan 2 15:04:05 2006
